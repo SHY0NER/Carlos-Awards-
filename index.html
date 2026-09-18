@@ -198,7 +198,6 @@
 
         .modal-overlay.open { display: flex; }
 
-        /* NUEVO DISEÑO MODAL NOMBRE PREMIUM */
         .name-card {
             background: linear-gradient(145deg, #181326 0%, #0d0a14 100%);
             border: 1px solid var(--gold-mid);
@@ -259,93 +258,17 @@
             border-color: var(--gold-light);
             box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
         }
-
-        /* Botón de Administración Flotante */
-        .admin-trigger {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            background: rgba(19, 16, 29, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: var(--gold-mid);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 95;
-            font-size: 1rem;
-        }
-
-        /* Modal Panel de Administración */
-        .admin-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--gold-mid);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 500px;
-            padding: 25px;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        .admin-section-title {
-            font-family: 'Cinzel', serif;
-            color: var(--gold-light);
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--gold-dark);
-            padding-bottom: 5px;
-        }
-
-        .admin-list-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .admin-btn-small {
-            padding: 5px 10px;
-            background: var(--error-red);
-            border: none;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Botón Flotante Admin (⚙️) -->
-    <div class="admin-trigger" onclick="openAdminModal()">⚙️</div>
-
-    <!-- Modal de Identificación (NUEVO DISEÑO MEJORADO) -->
+    <!-- Modal de Identificación -->
     <div class="modal-overlay" id="nameModal">
         <div class="name-card">
             <div class="name-title">Identificación Académica</div>
             <p class="name-subtitle">Bienvenido a la Selección Oficial 2026.<br>¿Cómo se llama, estimado académico?</p>
             <input type="text" id="voterNameInput" class="golden-input" placeholder="Escriba su nombre o apodo..." maxlength="30" autocomplete="off">
             <button class="submit-btn" onclick="saveVoterName()">Acceder a la Papeleta</button>
-        </div>
-    </div>
-
-    <!-- Modal Panel de Administración / Edición Frontend -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="admin-card">
-            <div class="admin-section-title">Gestión de Candidatos y Memes</div>
-            <div id="adminParticipantsList"></div>
-            <div class="admin-list-item" style="margin-top: 15px;">
-                <input type="text" id="newParticipantInput" class="golden-input" style="height: 40px; margin-bottom: 0;" placeholder="Nuevo candidato/meme...">
-                <button class="submit-btn" style="height: 40px; width: auto; padding: 0 15px;" onclick="addParticipant()">Añadir</button>
-            </div>
-
-            <div class="admin-section-title" style="margin-top: 25px;">Configuración de Gala</div>
-            <input type="text" id="adminSubtitleInput" class="golden-input" style="height: 40px; margin-bottom: 15px;" placeholder="Subtítulo de la cabecera...">
-            <button class="submit-btn" style="height: 40px; margin-bottom: 10px;" onclick="saveFrontendConfig()">Guardar Cambios Frontend</button>
-            <button class="submit-btn" style="height: 40px; background: transparent; border: 1px solid #666; color: #ccc;" onclick="closeAdminModal()">Cerrar Admin</button>
         </div>
     </div>
 
@@ -366,8 +289,6 @@
             <div class="voter-badge" id="voterBadgeDisplay"></div>
         </div>
 
-        <div id="apiStatusMessage" class="hidden"></div>
-
         <form id="voteForm">
             <div id="categoriesContainer"></div>
             
@@ -386,7 +307,6 @@
     <script>
         let currentVoterName = "";
 
-        // Lista editable de participantes (Se guarda en localStorage para persisistencia local)
         let participantes = JSON.parse(localStorage.getItem('carlos_custom_participants')) || [
             { id: 101, name: "Participante 1 - El Genio de la Parodia" }, 
             { id: 102, name: "Participante 2 - Obra Maestra del Montaje" }, 
@@ -403,22 +323,18 @@
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
-            // CONTROL DE VOTO ÚNICO DESACTIVADO/COMENTADO PARA PRUEBAS:
+            // GUARDADO DE NOMBRE COMENTADO: Siempre se solicitará el nombre al entrar/recargar
             /*
-            const previousVote = localStorage.getItem('carlos_voted_data');
-            if(previousVote) {
-                const voteData = JSON.parse(previousVote);
-                showFinalSuccess(voteData.voterName, voteData.idParticipacion);
-                return;
-            }
-            */
-
             const savedName = localStorage.getItem('carlos_voter_name');
             if(savedName) {
                 setVoterName(savedName);
             } else {
                 document.getElementById('nameModal').classList.add('open');
             }
+            */
+            
+            // Forzar apertura del modal del nombre al cargar la página
+            document.getElementById('nameModal').classList.add('open');
 
             const customSubtitle = localStorage.getItem('carlos_custom_subtitle');
             if(customSubtitle) {
@@ -435,7 +351,10 @@
                 alert("Por favor, introduzca su nombre para poder acceder.");
                 return;
             }
-            localStorage.setItem('carlos_voter_name', val);
+
+            // GUARDADO DE NOMBRE COMENTADO:
+            // localStorage.setItem('carlos_voter_name', val);
+
             setVoterName(val);
             document.getElementById('nameModal').classList.remove('open');
         }
@@ -513,14 +432,6 @@
 
             console.log('Payload de envío:', JSON.stringify(rawVotos));
 
-            // REGISTRO DE VOTO LOCAL COMENTADO PARA PRUEBAS:
-            /*
-            localStorage.setItem('carlos_voted_data', JSON.stringify({
-                voterName: currentVoterName,
-                idParticipacion: "CɅRLOS-2026-" + Math.floor(1000 + Math.random() * 9000)
-            }));
-            */
-
             showFinalSuccess(currentVoterName, "CɅRLOS-2026-" + Math.floor(1000 + Math.random() * 9000));
         }
 
@@ -533,61 +444,6 @@
             
             document.getElementById('finalSuccessState').classList.remove('hidden');
             window.scrollTo(0, 0);
-        }
-
-        /* LÓGICA DEL PANEL DE ADMINISTRACIÓN / EDICIÓN FRONTEND */
-        function openAdminModal() {
-            renderAdminParticipants();
-            document.getElementById('adminSubtitleInput').value = document.getElementById('headerSubtitleDisplay').innerText;
-            document.getElementById('adminModal').classList.add('open');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.remove('open');
-        }
-
-        function renderAdminParticipants() {
-            const list = document.getElementById('adminParticipantsList');
-            list.innerHTML = "";
-            participantes.forEach((p, idx) => {
-                list.innerHTML += `
-                    <div class="admin-list-item">
-                        <input type="text" class="golden-input" style="height: 35px; margin: 0; text-align: left; padding: 0 10px;" value="${p.name}" onchange="updateParticipantName(${idx}, this.value)">
-                        <button class="admin-btn-small" onclick="removeParticipant(${idx})">✕</button>
-                    </div>`;
-            });
-        }
-
-        function updateParticipantName(index, newName) {
-            participantes[index].name = newName;
-        }
-
-        function addParticipant() {
-            const input = document.getElementById('newParticipantInput');
-            if(input.value.trim()) {
-                participantes.push({ id: Date.now(), name: input.value.trim() });
-                input.value = "";
-                renderAdminParticipants();
-            }
-        }
-
-        function removeParticipant(index) {
-            participantes.splice(index, 1);
-            renderAdminParticipants();
-        }
-
-        function saveFrontendConfig() {
-            localStorage.setItem('carlos_custom_participants', JSON.stringify(participantes));
-            
-            const sub = document.getElementById('adminSubtitleInput').value.trim();
-            if(sub) {
-                localStorage.setItem('carlos_custom_subtitle', sub);
-                document.getElementById('headerSubtitleDisplay').innerText = sub;
-            }
-
-            renderCategories();
-            closeAdminModal();
-            alert("Configuración del Frontend actualizada correctamente.");
         }
     </script>
 </body>
