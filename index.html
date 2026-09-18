@@ -3,119 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gala de Los Carlos - Votaciones</title>
+    <title>Gala de Los Carlos - Votaciones Oficiales</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap');
 
         :root {
-            --bg-color: #0f0d15;
-            --card-bg: #171324;
-            --accent-gold: #d4af37;
-            --text-main: #e6e1ee;
-            --text-muted: #8a819b;
-            --border-color: #2e2645;
+            --bg-dark: #0a080f;
+            --card-bg: #13101d;
+            --gold-light: #fcf6ba;
+            --gold-mid: #d4af37;
+            --gold-dark: #aa771c;
+            --text-light: #f4f1f8;
+            --border-glow: rgba(212, 175, 55, 0.3);
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background: radial-gradient(circle at top center, #1a1625 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
         }
 
+        /* Cabecera y Logo */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--accent-gold);
-            padding-bottom: 20px;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            font-size: 2rem;
-            margin: 0;
-            letter-spacing: 3px;
+        .main-logo {
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         .subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 5px;
-            letter-spacing: 1px;
-            font-style: italic;
+            font-family: 'Cinzel', serif;
+            color: var(--gold-mid);
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-light), var(--gold-dark));
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shineText 4s linear infinite;
         }
 
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        /* Tarjetas de Categorías */
         .category-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.05), transparent);
+            transform: skewX(-25deg);
+            transition: all 0.7s ease;
         }
 
         .category-card:hover {
-            border-color: var(--accent-gold);
-            transform: translateY(-2px);
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 20px var(--border-glow);
+            transform: translateY(-3px);
         }
 
-        label {
+        .category-card:hover::before {
+            left: 200%;
+        }
+
+        .category-title {
             font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            display: block;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            text-align: center;
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Destacar la palabra Carlos en cursiva */
+        .carlos-highlight {
+            font-style: italic;
+            color: var(--gold-mid);
+            font-weight: 700;
         }
 
         select {
             width: 100%;
-            padding: 12px;
-            background-color: #201a2f;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            padding: 14px 16px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
             appearance: none;
             cursor: pointer;
-            text-align-last: center;
+            transition: border-color 0.3s;
         }
 
         select:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: var(--gold-light);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
-        button {
+        /* Botón de envío metálico */
+        .submit-btn {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--accent-gold), #aa820a);
-            color: var(--bg-color);
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
+            color: #000;
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 700;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 10px;
-            transition: opacity 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
-        button:hover {
-            opacity: 0.9;
+        .submit-btn img {
+            height: 24px;
+            width: auto;
+            filter: brightness(0); /* Lo vuelve negro para que contraste con el oro */
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #fff2cd 0%, var(--gold-light) 50%, var(--gold-mid) 100%);
         }
     </style>
 </head>
@@ -123,33 +180,37 @@
 
     <div class="container">
         <div class="header">
-            <h1>Carlos</h1>
-            <p class="subtitle">La Gala de las Grandes Estrellas</p>
+            <!-- Logo principal con nombre -->
+            <img src="Resources/Logo_Con_Nombre.png" alt="Los Carlos Awards" class="main-logo" onerror="this.style.display='none'">
+            <div class="subtitle">Selección Oficial 2026</div>
         </div>
 
         <form id="voteForm">
             <div id="categoriesContainer"></div>
-            <button type="button" onclick="submitVotes()">Enviar Votos</button>
+            
+            <button type="button" class="submit-btn" onclick="submitVotes()">
+                <span>Sellar Votos</span>
+                <!-- Isotipo sin nombre en el botón -->
+                <img src="Resources/Logo_Sin_Nombre.png" alt="Icono Carlos" onerror="this.style.display='none'">
+            </button>
         </form>
     </div>
 
     <script>
         const participantes = [
-            "Meme 1 - El Genio", 
-            "Meme 2 - Obra Maestra", 
-            "Pareja C - Los Infiltrados"
+            "Participante 1 - El Genio", 
+            "Participante 2 - Obra Maestra", 
+            "Participante 3 - Los Infiltrados"
         ];
 
+        // Se ha añadido la clase a "Carlos" para que se muestre en cursiva como solicitó
         const categorias = [
-            "Carlos a la Mejor Interpretación",
-            "Carlos al Mejor Atrezzo",
-            "Carlos a la Mejor Puesta en Escena",
-            "Carlos a la Mejor Edición",
-            "Carlos a la Mejor Innovación",
-            "El Carlos de Oro",
-            "Carlos al Meme Más Viral o Nostálgico",
-            "Carlos a la Parodia Más Fiel",
-            "Carlos al Personaje Secundario o Cameo"
+            "<span class='carlos-highlight'>Carlos</span> a la Mejor Interpretación",
+            "<span class='carlos-highlight'>Carlos</span> al Mejor Atrezzo",
+            "<span class='carlos-highlight'>Carlos</span> a la Mejor Puesta en Escena",
+            "El <span class='carlos-highlight'>Carlos</span> de Oro",
+            "<span class='carlos-highlight'>Carlos</span> al Meme Más Viral",
+            "<span class='carlos-highlight'>Carlos</span> al Personaje Secundario"
         ];
 
         const container = document.getElementById('categoriesContainer');
@@ -158,16 +219,16 @@
             let options = participantes.map(p => `<option value="${p}">${p}</option>`).join('');
             container.innerHTML += `
                 <div class="category-card">
-                    <label>${cat}</label>
+                    <div class="category-title">${cat}</div>
                     <select id="cat_${idx}">
-                        <option value="" disabled selected>Elige un nominado</option>
+                        <option value="" disabled selected>Seleccione su candidato...</option>
                         ${options}
                     </select>
                 </div>`;
         });
 
         function submitVotes() {
-            alert("¡Votos registrados correctamente, Don Pablo!");
+            alert("¡Sus votos han sido registrados con éxito, Don Pablo!");
         }
     </script>
 </body>
