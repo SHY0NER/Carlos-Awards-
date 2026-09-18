@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gala de Los Carlos - Votación</title>
+  <style>
+    body { background: #0f0d15; color: #e6e1ee; font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; margin: 0; }
+    .header { text-align: center; padding: 20px 0; }
+    h1 { color: #f3e5ab; text-transform: uppercase; font-size: 1.8rem; margin: 0; letter-spacing: 2px; }
+    p.subtitle { color: #d4af37; font-size: 0.9rem; margin-top: 5px; }
+    .card { background: #171324; border: 1px solid #d4af37; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+    label { color: #f3e5ab; font-weight: bold; display: block; margin-bottom: 8px; font-size: 1rem; }
+    select { width: 100%; padding: 10px; background: #241c38; color: #fff; border: 1px solid #d4af37; border-radius: 5px; font-size: 0.95rem; }
+    button { width: 100%; padding: 14px; background: linear-gradient(135deg, #d4af37, #aa820a); color: #0f0d15; font-weight: bold; border: none; border-radius: 6px; font-size: 1.1rem; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🏆 Los Carlos</h1>
+    <p class="subtitle">Edición Oficial — Votación en Directo</p>
+  </div>
+
+  <form id="voteForm">
+    <div id="categoriesContainer"></div>
+    <button type="button" onclick="submitVotes()">Enviar Votos Oficiales</button>
+  </form>
+
+  <script>
+    // EDITAR AQUÍ LOS PARTICIPANTES EL DÍA ANTES DE LA GALA:
+    const participantes = [
+      "Meme 1 - Grupo A", 
+      "Meme 2 - Grupo B", 
+      "Meme 3 - Participante C"
+    ];
+
+    const categorias = [
+      "Carlos a la Mejor Interpretación",
+      "Carlos al Mejor Atrezzo",
+      "Carlos a la Mejor Puesta en Escena",
+      "Carlos a la Mejor Edición",
+      "Carlos a la Mejor Innovación",
+      "El Carlos de Oro (Mejor Meme)",
+      "Carlos al Meme Más Viral / Nostálgico",
+      "Carlos a la Parodia Más Fiel",
+      "Carlos al Personaje Secundario / Cameo"
+    ];
+
+    const container = document.getElementById('categoriesContainer');
+
+    categorias.forEach((cat, idx) => {
+      let options = participantes.map(p => `<option value="${p}">${p}</option>`).join('');
+      container.innerHTML += `
+        <div class="card">
+          <label>${cat}</label>
+          <select id="cat_${idx}">
+            <option value="" disabled selected>Selecciona tu favorito...</option>
+            ${options}
+          </select>
+        </div>`;
+    });
+
+    function submitVotes() {
+      alert("¡Votos registrados correctamente, Don Pablo! Gracias por participar.");
+    }
+  </script>
+</body>
+</html>
