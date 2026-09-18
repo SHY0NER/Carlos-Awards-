@@ -109,6 +109,14 @@
             text-align: center;
         }
 
+        .card-icon {
+            height: 22px;
+            width: auto;
+            vertical-align: middle;
+            margin-right: 6px;
+            filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+        }
+
         .carlos-highlight {
             font-style: italic;
             color: var(--gold-mid);
@@ -200,34 +208,39 @@
 
         .name-card {
             background: linear-gradient(145deg, #181326 0%, #0d0a14 100%);
-            border: 1px solid var(--gold-mid);
-            border-radius: 16px;
+            border: 2px solid var(--gold-mid);
+            border-radius: 18px;
             width: 100%;
             max-width: 420px;
-            padding: 35px 25px;
+            padding: 30px 25px;
             text-align: center;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.15);
             position: relative;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 15px rgba(212, 175, 55, 0.15);
+            animation: goldGlow 4s ease-in-out infinite alternate;
         }
 
-        .name-card::before {
-            content: 'CɅRLOS®';
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            color: var(--gold-dark);
-            opacity: 0.6;
+        @keyframes goldGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.1);
+                border-color: var(--gold-dark);
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(252, 246, 186, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.25);
+                border-color: var(--gold-light);
+            }
+        }
+
+        .name-card-logo {
+            max-width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
         }
 
         .name-title {
             font-family: 'Cinzel', serif;
             color: var(--gold-light);
             font-size: 1.4rem;
-            margin-top: 10px;
             margin-bottom: 10px;
             font-weight: 700;
         }
@@ -265,6 +278,7 @@
     <!-- Modal de Identificación -->
     <div class="modal-overlay" id="nameModal">
         <div class="name-card">
+            <img src="Resources/Logo_Sin_Nombre.png" alt="Isotipo CɅRLOS®" class="name-card-logo" onerror="console.error('Error cargando Resources/Logo_Sin_Nombre.png')">
             <div class="name-title">Identificación Académica</div>
             <p class="name-subtitle">Bienvenido a la Selección Oficial 2026.<br>¿Cómo se llama, estimado académico?</p>
             <input type="text" id="voterNameInput" class="golden-input" placeholder="Escriba su nombre o apodo..." maxlength="30" autocomplete="off">
@@ -314,26 +328,15 @@
         ];
 
         const categoriasData = [
-            { id: "interpr", title: "Mejor Interpretación", desc: "Se premia la calidad actoral del participante y la credibilidad en su papel humorístico." },
-            { id: "atrezzo", title: "Mejor Atrezzo y Vestuario", desc: "Premio a los mejores recursos físicos, disfraces o escenarios utilizados en el meme/video." },
-            { id: "puesta", title: "Mejor Puesta en Escena", desc: "Se valora la dirección artística general, iluminación y composición del plano." },
-            { id: "memes", title: "Meme Más Viral del Año", desc: "Categoría popular que premia el impacto orgánico y la difusión masiva en redes." },
-            { id: "secund", title: "Mejor Personaje Secundario", desc: "Premio al acompañante o cameo que roba la escena con su breve intervención." },
-            { id: "oro", title: "El CɅRLOS® de Oro", desc: "Premio máximo otorgado a la mejor pieza del año en su conjunto. Solo para la excelencia absoluta." }
+            { id: "interpr", prefix: "CɅRLOS® a la ", title: "Mejor Interpretación", desc: "Se premia la calidad actoral del participante y la credibilidad en su papel humorístico." },
+            { id: "atrezzo", prefix: "CɅRLOS® al ", title: "Mejor Atrezzo y Vestuario", desc: "Premio a los mejores recursos físicos, disfraces o escenarios utilizados en el meme/video." },
+            { id: "puesta", prefix: "CɅRLOS® a la ", title: "Mejor Puesta en Escena", desc: "Se valora la dirección artística general, iluminación y composición del plano." },
+            { id: "memes", prefix: "CɅRLOS® al ", title: "Meme Más Viral del Año", desc: "Categoría popular que premia el impacto orgánico y la difusión masiva en redes." },
+            { id: "secund", prefix: "CɅRLOS® al ", title: "Mejor Personaje Secundario", desc: "Premio al acompañante o cameo que roba la escena con su breve intervención." },
+            { id: "oro", prefix: "El ", title: "CɅRLOS® de Oro", desc: "Premio máximo otorgado a la mejor pieza del año en su conjunto. Solo para la excelencia absoluta." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
-            // GUARDADO DE NOMBRE COMENTADO: Siempre se solicitará el nombre al entrar/recargar
-            /*
-            const savedName = localStorage.getItem('carlos_voter_name');
-            if(savedName) {
-                setVoterName(savedName);
-            } else {
-                document.getElementById('nameModal').classList.add('open');
-            }
-            */
-            
-            // Forzar apertura del modal del nombre al cargar la página
             document.getElementById('nameModal').classList.add('open');
 
             const customSubtitle = localStorage.getItem('carlos_custom_subtitle');
@@ -352,9 +355,6 @@
                 return;
             }
 
-            // GUARDADO DE NOMBRE COMENTADO:
-            // localStorage.setItem('carlos_voter_name', val);
-
             setVoterName(val);
             document.getElementById('nameModal').classList.remove('open');
         }
@@ -372,7 +372,8 @@
                 container.innerHTML += `
                     <div class="category-card" id="card_${cat.id}">
                         <label for="select_${cat.id}" class="category-title">
-                            <span class='carlos-highlight'>CɅRLOS®</span> a la ${cat.title}
+                            <img src="Resources/Logo_Sin_Nombre.png" alt="CɅRLOS®" class="card-icon" onerror="console.error('Error cargando icon')">
+                            <span class='carlos-highlight'>${cat.prefix}</span>${cat.title}
                         </label>
                         <div class="category-description">${cat.desc}</div>
                         <select id="select_${cat.id}" name="${cat.id}" required>
