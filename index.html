@@ -87,6 +87,24 @@
             font-style: italic;
         }
 
+        .change-name-btn {
+            background: transparent;
+            border: 1px solid var(--gold-dark);
+            color: var(--gold-light);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .change-name-btn:hover {
+            border-color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
         /* Tarjetas */
         .category-card {
             background-color: var(--card-bg);
@@ -206,6 +224,7 @@
 
         .modal-overlay.open { display: flex; }
 
+        /* NUEVO DISEÑO PREMIUM PARA EL MODAL DE NOMBRE */
         .name-card {
             background: linear-gradient(145deg, #181326 0%, #0d0a14 100%);
             border: 2px solid var(--gold-mid);
@@ -301,6 +320,8 @@
             <img src="Resources/Logo_Con_Nombre.png" alt="Los CɅRLOS® Awards 2026" class="main-logo">
             <div class="subtitle" id="headerSubtitleDisplay">Selección Oficial 2026</div>
             <div class="voter-badge" id="voterBadgeDisplay"></div>
+            <!-- Nuevo botón para cambiar nombre -->
+            <button id="changeNameBtn" class="change-name-btn hidden" onclick="openNameModal()">Cambiar Nombre</button>
         </div>
 
         <form id="voteForm">
@@ -337,6 +358,7 @@
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Forzar apertura del modal del nombre al cargar la página (sin guardado persistente)
             document.getElementById('nameModal').classList.add('open');
 
             const customSubtitle = localStorage.getItem('carlos_custom_subtitle');
@@ -362,6 +384,14 @@
         function setVoterName(name) {
             currentVoterName = name;
             document.getElementById('voterBadgeDisplay').innerText = "Académico: " + name;
+            // Mostrar el botón de cambiar nombre una vez ingresado
+            document.getElementById('changeNameBtn').classList.remove('hidden');
+        }
+
+        // Nueva función para reabrir el modal de nombre
+        function openNameModal() {
+            document.getElementById('voterNameInput').value = currentVoterName;
+            document.getElementById('nameModal').classList.add('open');
         }
 
         function renderCategories() {
