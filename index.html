@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gala de Los CɅRLOS® - Votaciones Oficiales</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;600&display=swap');
 
         :root {
             --bg-dark: #0a080f;
@@ -19,7 +19,6 @@
             --error-red: #ff3c3c;
             --success-green: #2ecc71;
             --touch-target: 48px;
-            --padding-mobile: 15px;
         }
 
         * {
@@ -45,12 +44,11 @@
             max-width: 550px;
         }
 
-        /* Ocultación estricta para evitar solapamientos en móvil */
         .hidden {
             display: none !important;
         }
 
-        /* Cabecera y Logo */
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 25px;
@@ -60,14 +58,8 @@
             max-width: 180px;
             width: 100%;
             height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
-            animation: floatMobile 8s ease-in-out infinite;
-        }
-
-        @keyframes floatMobile {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.25));
         }
 
         .subtitle {
@@ -88,7 +80,6 @@
             to { background-position: 200% center; }
         }
 
-        /* User badge header */
         .voter-badge {
             font-size: 0.85rem;
             color: var(--gold-light);
@@ -96,58 +87,18 @@
             font-style: italic;
         }
 
-        /* Contador de estado */
-        .status-counter {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(19, 16, 29, 0.95);
-            border: 1px solid var(--gold-mid);
-            color: var(--gold-mid);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            z-index: 90;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .counter-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #555;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-        }
-
-        .counter-complete .counter-dot {
-            background-color: var(--success-green);
-        }
-
-        /* Tarjetas de Categorías */
+        /* Tarjetas */
         .category-card {
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
             padding: 18px 15px;
             margin-bottom: 20px;
-            position: relative;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            width: 100%;
         }
 
-        .category-card.not-selected {
-            border-color: rgba(255, 60, 60, 0.4);
-        }
-
-        .category-card.selected {
-            border-color: rgba(212, 175, 55, 0.4);
-        }
+        .category-card.not-selected { border-color: rgba(255, 60, 60, 0.4); }
+        .category-card.selected { border-color: rgba(212, 175, 55, 0.4); }
 
         .category-title {
             font-family: 'Cinzel', serif;
@@ -156,7 +107,6 @@
             margin-bottom: 8px;
             display: block;
             text-align: center;
-            line-height: 1.3;
         }
 
         .carlos-highlight {
@@ -169,9 +119,8 @@
             color: rgba(244, 241, 248, 0.7);
             font-size: 0.85rem;
             margin-bottom: 15px;
-            font-weight: 300;
-            line-height: 1.35;
             text-align: center;
+            line-height: 1.35;
         }
 
         select {
@@ -183,7 +132,6 @@
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 6px;
             font-size: 0.95rem;
-            font-family: 'Inter', sans-serif;
             appearance: none;
             cursor: pointer;
             text-align-last: center;
@@ -192,7 +140,6 @@
         select:focus {
             outline: none;
             border-color: var(--gold-light);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
         .select-error {
@@ -200,11 +147,9 @@
             background-color: var(--card-error) !important;
         }
 
-        /* Botón de envío */
         .submit-btn {
             width: 100%;
             height: 52px;
-            padding: 0 18px;
             background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 50%, var(--gold-dark) 100%);
             color: #000;
             font-family: 'Cinzel', serif;
@@ -215,7 +160,6 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -223,238 +167,227 @@
             box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
         }
 
-        .submit-btn img {
-            height: 18px;
-            width: auto;
-            filter: brightness(0);
-        }
+        .submit-btn img { height: 18px; filter: brightness(0); }
 
-        .submit-btn:disabled {
-            background: #333;
-            color: #777;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-
-        /* Estado del servidor/API */
-        .api-status {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            font-size: 0.88rem;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        .api-status.error {
-            display: block;
-            background-color: var(--card-error);
-            border: 1px solid var(--error-red);
-            color: var(--error-red);
-        }
-
-        .api-status.loading {
-            display: block;
-            background-color: rgba(212, 175, 55, 0.1);
+        /* Status & Modales */
+        .status-counter {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(19, 16, 29, 0.95);
             border: 1px solid var(--gold-mid);
-            color: var(--gold-light);
+            color: var(--gold-mid);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            z-index: 90;
         }
 
-        .api-status.success {
-            display: block;
-            background-color: rgba(46, 204, 113, 0.1);
-            border: 1px solid var(--success-green);
-            color: var(--success-green);
-        }
-
-        /* Modales */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(5, 3, 8, 0.88);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             padding: 15px;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
         }
 
-        .modal-overlay.open {
+        .modal-overlay.open { display: flex; }
+
+        /* NUEVO DISEÑO MODAL NOMBRE PREMIUM */
+        .name-card {
+            background: linear-gradient(145deg, #181326 0%, #0d0a14 100%);
+            border: 1px solid var(--gold-mid);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 420px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.15);
+            position: relative;
+        }
+
+        .name-card::before {
+            content: 'CɅRLOS®';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            color: var(--gold-dark);
+            opacity: 0.6;
+        }
+
+        .name-title {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .name-subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            opacity: 0.85;
+        }
+
+        .golden-input {
+            width: 100%;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--gold-dark);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.05rem;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .golden-input:focus {
+            outline: none;
+            border-color: var(--gold-light);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Botón de Administración Flotante */
+        .admin-trigger {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(19, 16, 29, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--gold-mid);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 95;
+            font-size: 1rem;
         }
 
-        .modal-card {
+        /* Modal Panel de Administración */
+        .admin-card {
             background-color: var(--card-bg);
             border: 1px solid var(--gold-mid);
             border-radius: 12px;
             width: 100%;
-            max-width: 420px;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            max-width: 500px;
+            padding: 25px;
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
-        .modal-title {
+        .admin-section-title {
             font-family: 'Cinzel', serif;
             color: var(--gold-light);
-            font-size: 1.25rem;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gold-dark);
+            padding-bottom: 5px;
         }
 
-        .modal-text {
-            color: var(--text-light);
-            font-size: 0.92rem;
-            line-height: 1.45;
-            margin-bottom: 20px;
-        }
-
-        .text-input {
-            width: 100%;
-            height: 48px;
-            padding: 0 15px;
-            background-color: rgba(0,0,0,0.5);
-            border: 1px solid var(--gold-mid);
-            border-radius: 6px;
-            color: #fff;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-color: var(--gold-light);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-        }
-
-        .modal-buttons {
+        .admin-list-item {
             display: flex;
             gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .modal-btn {
-            flex: 1;
-            height: 46px;
-            border-radius: 6px;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        .modal-btn-confirm {
-            background: linear-gradient(135deg, var(--gold-mid), var(--gold-dark));
+        .admin-btn-small {
+            padding: 5px 10px;
+            background: var(--error-red);
             border: none;
-            color: #000;
-        }
-
-        .modal-btn-cancel {
-            background: transparent;
-            border: 1px solid #666;
-            color: #ccc;
-        }
-
-        /* Pantalla de Éxito Final */
-        #finalSuccessState {
-            text-align: center;
-            padding: 40px 15px;
-            width: 100%;
-            max-width: 500px;
-            margin: auto;
-        }
-
-        .success-icon {
-            font-size: 3.5rem;
-            color: var(--success-green);
-            margin-bottom: 20px;
-            animation: scaleIn 0.4s ease;
-        }
-
-        .participation-id {
-            background: rgba(46, 204, 113, 0.1);
-            border: 1px solid var(--success-green);
-            color: var(--success-green);
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            margin-top: 20px;
-            font-weight: 600;
-            word-break: break-all;
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Modal de Registro de Nombre -->
+    <!-- Botón Flotante Admin (⚙️) -->
+    <div class="admin-trigger" onclick="openAdminModal()">⚙️</div>
+
+    <!-- Modal de Identificación (NUEVO DISEÑO MEJORADO) -->
     <div class="modal-overlay" id="nameModal">
-        <div class="modal-card">
-            <div class="modal-title">Identificación Académica</div>
-            <p class="modal-text">Bienvenido a la Gala de los CɅRLOS®. ¿Cómo se llama, estimado académico?</p>
-            <input type="text" id="voterNameInput" class="text-input" placeholder="Escriba su nombre..." maxlength="30" autocomplete="off">
-            <button class="modal-btn modal-btn-confirm" style="width: 100%;" onclick="saveVoterName()">Acceder a la Papeleta</button>
+        <div class="name-card">
+            <div class="name-title">Identificación Académica</div>
+            <p class="name-subtitle">Bienvenido a la Selección Oficial 2026.<br>¿Cómo se llama, estimado académico?</p>
+            <input type="text" id="voterNameInput" class="golden-input" placeholder="Escriba su nombre o apodo..." maxlength="30" autocomplete="off">
+            <button class="submit-btn" onclick="saveVoterName()">Acceder a la Papeleta</button>
         </div>
     </div>
 
-    <!-- Pantalla de Éxito Final (Oculta por defecto) -->
-    <div id="finalSuccessState" class="hidden">
-        <div class="success-icon">✓</div>
-        <div class="modal-title">¡Votación Registrada!</div>
-        <p class="modal-text">Estimado/a <span id="successUserName" style="color: var(--gold-light); font-weight: 600;"></span>, su papeleta ha sido sellada e introducida en la urna de la Academia.</p>
-        <p class="category-description">Gracias por su participación en la Gala de los CɅRLOS® 2026.</p>
-        <div class="participation-id" id="participationIdDisplay">CɅRLOS-2026-REGISTRADO</div>
+    <!-- Modal Panel de Administración / Edición Frontend -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="admin-card">
+            <div class="admin-section-title">Gestión de Candidatos y Memes</div>
+            <div id="adminParticipantsList"></div>
+            <div class="admin-list-item" style="margin-top: 15px;">
+                <input type="text" id="newParticipantInput" class="golden-input" style="height: 40px; margin-bottom: 0;" placeholder="Nuevo candidato/meme...">
+                <button class="submit-btn" style="height: 40px; width: auto; padding: 0 15px;" onclick="addParticipant()">Añadir</button>
+            </div>
+
+            <div class="admin-section-title" style="margin-top: 25px;">Configuración de Gala</div>
+            <input type="text" id="adminSubtitleInput" class="golden-input" style="height: 40px; margin-bottom: 15px;" placeholder="Subtítulo de la cabecera...">
+            <button class="submit-btn" style="height: 40px; margin-bottom: 10px;" onclick="saveFrontendConfig()">Guardar Cambios Frontend</button>
+            <button class="submit-btn" style="height: 40px; background: transparent; border: 1px solid #666; color: #ccc;" onclick="closeAdminModal()">Cerrar Admin</button>
+        </div>
     </div>
 
-    <!-- Contenido Principal de Votación -->
+    <!-- Pantalla de Éxito Final -->
+    <div id="finalSuccessState" class="hidden" style="text-align: center; padding: 40px 15px;">
+        <div style="font-size: 3.5rem; color: var(--success-green); margin-bottom: 20px;">✓</div>
+        <div style="font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 1.4rem; margin-bottom: 10px;">¡Votación Registrada!</div>
+        <p style="margin-bottom: 15px;">Estimado/a <span id="successUserName" style="color: var(--gold-light); font-weight: 600;"></span>, su papeleta ha sido sellada e introducida en la urna de la Academia.</p>
+        <p class="category-description">Gracias por su participación en la Gala de los CɅRLOS® 2026.</p>
+        <div id="participationIdDisplay" style="background: rgba(46, 204, 113, 0.1); border: 1px solid var(--success-green); color: var(--success-green); padding: 12px; border-radius: 8px; margin-top: 20px;">CɅRLOS-2026-REGISTRADO</div>
+    </div>
+
+    <!-- Contenido Principal -->
     <div class="container" id="votingMainContent">
         <div class="header">
-            <img src="Resources/Logo_Con_Nombre.png" alt="Los CɅRLOS® Awards 2026" class="main-logo" onerror="console.error('Error cargando Resources/Logo_Con_Nombre.png')">
-            <div class="subtitle">Selección Oficial 2026</div>
+            <img src="Resources/Logo_Con_Nombre.png" alt="Los CɅRLOS® Awards 2026" class="main-logo">
+            <div class="subtitle" id="headerSubtitleDisplay">Selección Oficial 2026</div>
             <div class="voter-badge" id="voterBadgeDisplay"></div>
         </div>
 
-        <div id="apiStatusMessage" class="api-status"></div>
+        <div id="apiStatusMessage" class="hidden"></div>
 
         <form id="voteForm">
             <div id="categoriesContainer"></div>
             
             <button type="button" class="submit-btn" id="submitBtn" onclick="trySellarVotos()">
                 <span>Sellar Votos Oficiales</span>
-                <img src="Resources/Logo_Sin_Nombre.png" alt="Icono CɅRLOS®" onerror="console.error('Error cargando Resources/Logo_Sin_Nombre.png')">
+                <img src="Resources/Logo_Sin_Nombre.png" alt="Icono CɅRLOS®">
             </button>
         </form>
     </div>
 
-    <!-- Modal de Confirmación -->
-    <div class="modal-overlay" id="confirmationModal">
-        <div class="modal-card">
-            <div class="modal-title">¿Sellar Papeleta?</div>
-            <p class="modal-text"><span id="confirmUserName" style="color: var(--gold-light); font-weight: 600;"></span>, una vez sellada la papeleta no podrá modificar sus votos. ¿Desea continuar?</p>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-cancel" onclick="closeConfirmation()">Volver</button>
-                <button class="modal-btn modal-btn-confirm" onclick="confirmSubmission()">Sellar y Enviar</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Contador de estado fixed -->
     <div class="status-counter" id="statusCounter">
-        <div class="counter-dot"></div>
         <span id="counterText">0/6 Completadas</span>
     </div>
 
     <script>
         let currentVoterName = "";
 
-        const participantes = [
+        // Lista editable de participantes (Se guarda en localStorage para persisistencia local)
+        let participantes = JSON.parse(localStorage.getItem('carlos_custom_participants')) || [
             { id: 101, name: "Participante 1 - El Genio de la Parodia" }, 
             { id: 102, name: "Participante 2 - Obra Maestra del Montaje" }, 
             { id: 103, name: "Participante 3 - Los Infiltrados del Ring" }
@@ -469,27 +402,27 @@
             { id: "oro", title: "El CɅRLOS® de Oro", desc: "Premio máximo otorgado a la mejor pieza del año en su conjunto. Solo para la excelencia absoluta." }
         ];
 
-        const container = document.getElementById('categoriesContainer');
-        const counterText = document.getElementById('counterText');
-        const statusCounter = document.getElementById('statusCounter');
-
-        // Inicializar aplicación
         window.addEventListener('DOMContentLoaded', () => {
-           /*
-const previousVote = localStorage.getItem('carlos_voted_data');
-if(previousVote) {
-    const voteData = JSON.parse(previousVote);
-    showFinalSuccess(voteData.voterName, voteData.idParticipacion);
-    return;
-}
-*/    
+            // CONTROL DE VOTO ÚNICO DESACTIVADO/COMENTADO PARA PRUEBAS:
+            /*
+            const previousVote = localStorage.getItem('carlos_voted_data');
+            if(previousVote) {
+                const voteData = JSON.parse(previousVote);
+                showFinalSuccess(voteData.voterName, voteData.idParticipacion);
+                return;
+            }
+            */
 
-            // Comprobar si ya existe nombre guardado
             const savedName = localStorage.getItem('carlos_voter_name');
             if(savedName) {
                 setVoterName(savedName);
             } else {
                 document.getElementById('nameModal').classList.add('open');
+            }
+
+            const customSubtitle = localStorage.getItem('carlos_custom_subtitle');
+            if(customSubtitle) {
+                document.getElementById('headerSubtitleDisplay').innerText = customSubtitle;
             }
 
             renderCategories();
@@ -499,7 +432,7 @@ if(previousVote) {
             const input = document.getElementById('voterNameInput');
             const val = input.value.trim();
             if(!val) {
-                alert("Por favor, introduzca su nombre para poder votar.");
+                alert("Por favor, introduzca su nombre para poder acceder.");
                 return;
             }
             localStorage.setItem('carlos_voter_name', val);
@@ -513,6 +446,7 @@ if(previousVote) {
         }
 
         function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
             container.innerHTML = "";
             categoriasData.forEach((cat) => {
                 let options = participantes.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
@@ -534,39 +468,18 @@ if(previousVote) {
         function updateStateCounter() {
             let total = categoriasData.length;
             let completed = 0;
-            const selects = container.querySelectorAll('select');
+            const selects = document.querySelectorAll('#categoriesContainer select');
             
             selects.forEach(select => {
-                const card = document.getElementById('card_' + select.name);
-                if(select.value !== "") {
-                    completed++;
-                    if(card) {
-                        card.classList.add('selected');
-                        card.classList.remove('not-selected');
-                    }
-                }
+                if(select.value !== "") completed++;
             });
 
-            counterText.innerText = `${completed}/${total} Completadas`;
-            if(completed === total) {
-                statusCounter.classList.add('counter-complete');
-            } else {
-                statusCounter.classList.remove('counter-complete');
-            }
+            document.getElementById('counterText').innerText = `${completed}/${total} Completadas`;
         }
 
-        container.addEventListener('change', (e) => {
-            if(e.target.tagName === 'SELECT') {
-                updateStateCounter();
-                e.target.classList.remove('select-error');
-            }
-        });
-
-        const confirmationModal = document.getElementById('confirmationModal');
+        document.getElementById('categoriesContainer').addEventListener('change', updateStateCounter);
 
         function trySellarVotos() {
-            showApiStatus('none', '');
-
             let allValid = true;
             categoriasData.forEach(cat => {
                 const select = document.getElementById(`select_${cat.id}`);
@@ -582,80 +495,33 @@ if(previousVote) {
             });
 
             if(!allValid) {
-                showApiStatus('error', 'Por favor, complete todas las categorías antes de sellar la papeleta.');
+                alert("Por favor, complete todas las categorías antes de sellar la papeleta.");
                 return;
             }
 
-            document.getElementById('confirmUserName').innerText = currentVoterName;
-            confirmationModal.classList.add('open');
-        }
-
-        function closeConfirmation() {
-            confirmationModal.classList.remove('open');
-        }
-
-        function confirmSubmission() {
-            closeConfirmation();
-            enviarVotosABackend();
-        }
-
-        /* Unificación de estados de UI */
-        function showApiStatus(type, msg) {
-            const apiStatusMessage = document.getElementById('apiStatusMessage');
-            apiStatusMessage.className = 'api-status';
-            if(type === 'none') return;
-            
-            apiStatusMessage.innerText = msg;
-            apiStatusMessage.classList.add(type);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(confirm(`${currentVoterName}, ¿desea sellar definitivamente sus votos para los CɅRLOS®?`)) {
+                enviarVotosABackend();
+            }
         }
 
         function enviarVotosABackend() {
-            const submitBtn = document.getElementById('submitBtn');
-            const selects = container.querySelectorAll('select');
-            
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Sellando la papeleta...';
-            showApiStatus('loading', 'Sincronizando con los servidores de la Academia, por favor espere...');
-
             let rawVotos = {
                 voterName: currentVoterName,
                 votes: {}
             };
-            selects.forEach(s => rawVotos.votes[s.name] = parseInt(s.value));
+            document.querySelectorAll('#categoriesContainer select').forEach(s => rawVotos.votes[s.name] = parseInt(s.value));
 
-            // JSON.stringify en lugar del erróneo JSON.Array()
-            console.log('Payload corregido:', JSON.stringify(rawVotos));
+            console.log('Payload de envío:', JSON.stringify(rawVotos));
 
-            /* 
-            // CÓDIGO REAL PARA SU PROGRAMADOR (BACKEND)
-            fetch('/api/registrar-votos', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(rawVotos)
-            })
-            .then(res => res.json())
-            .then(data => { handleSuccessResponse(data); })
-            .catch(err => {
-                showApiStatus('error', 'Error de conexión con el servidor. Inténtelo de nuevo.');
-                submitBtn.disabled = false;
-            });
+            // REGISTRO DE VOTO LOCAL COMENTADO PARA PRUEBAS:
+            /*
+            localStorage.setItem('carlos_voted_data', JSON.stringify({
+                voterName: currentVoterName,
+                idParticipacion: "CɅRLOS-2026-" + Math.floor(1000 + Math.random() * 9000)
+            }));
             */
 
-            // Simulación de éxito
-            setTimeout(() => {
-                const mockResponse = { 
-                    idParticipacion: "CɅRLOS-2026-" + Math.floor(1000 + Math.random() * 9000)
-                };
-                
-                // Guardar en localStorage para evitar voto doble local
-                /*localStorage.setItem('carlos_voted_data', JSON.stringify({
-                    voterName: currentVoterName,
-                    idParticipacion: mockResponse.idParticipacion
-                }));*/
-
-                showFinalSuccess(currentVoterName, mockResponse.idParticipacion);
-            }, 1800);
+            showFinalSuccess(currentVoterName, "CɅRLOS-2026-" + Math.floor(1000 + Math.random() * 9000));
         }
 
         function showFinalSuccess(name, idCode) {
@@ -667,6 +533,61 @@ if(previousVote) {
             
             document.getElementById('finalSuccessState').classList.remove('hidden');
             window.scrollTo(0, 0);
+        }
+
+        /* LÓGICA DEL PANEL DE ADMINISTRACIÓN / EDICIÓN FRONTEND */
+        function openAdminModal() {
+            renderAdminParticipants();
+            document.getElementById('adminSubtitleInput').value = document.getElementById('headerSubtitleDisplay').innerText;
+            document.getElementById('adminModal').classList.add('open');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('open');
+        }
+
+        function renderAdminParticipants() {
+            const list = document.getElementById('adminParticipantsList');
+            list.innerHTML = "";
+            participantes.forEach((p, idx) => {
+                list.innerHTML += `
+                    <div class="admin-list-item">
+                        <input type="text" class="golden-input" style="height: 35px; margin: 0; text-align: left; padding: 0 10px;" value="${p.name}" onchange="updateParticipantName(${idx}, this.value)">
+                        <button class="admin-btn-small" onclick="removeParticipant(${idx})">✕</button>
+                    </div>`;
+            });
+        }
+
+        function updateParticipantName(index, newName) {
+            participantes[index].name = newName;
+        }
+
+        function addParticipant() {
+            const input = document.getElementById('newParticipantInput');
+            if(input.value.trim()) {
+                participantes.push({ id: Date.now(), name: input.value.trim() });
+                input.value = "";
+                renderAdminParticipants();
+            }
+        }
+
+        function removeParticipant(index) {
+            participantes.splice(index, 1);
+            renderAdminParticipants();
+        }
+
+        function saveFrontendConfig() {
+            localStorage.setItem('carlos_custom_participants', JSON.stringify(participantes));
+            
+            const sub = document.getElementById('adminSubtitleInput').value.trim();
+            if(sub) {
+                localStorage.setItem('carlos_custom_subtitle', sub);
+                document.getElementById('headerSubtitleDisplay').innerText = sub;
+            }
+
+            renderCategories();
+            closeAdminModal();
+            alert("Configuración del Frontend actualizada correctamente.");
         }
     </script>
 </body>
